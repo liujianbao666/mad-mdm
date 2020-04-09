@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="themes/default/list_css::top"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <div th:replace="themes/default/header::header"></div>
+
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
+        <div th:replace="themes/default/nav::nav"></div>
+    </div>
+    <div sec:authorize="hasRole('ROLE_USER')">
+        <div th:replace="themes/default/user_nav::nav"></div>
+    </div>
+
+    <style type="text/css">
+        th, td {
+            white-space: nowrap;
+        }
+    </style>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                用户管理
+                <small>用户列表</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href="#"><i class="fa fa-dashboard"></i> 首页</a></li>
+                <li><a href="#">用户管理</a></li>
+                <li class="active">用户列表</li>
+            </ol>
+        </section>
+        <!-- 修改模态框（Modal） -->
+        <div class="modal fade" id="addUsersModal" tabindex="-1" role="dialog" aria-labelledby="addUsersModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="addUsersModalLabel">
+                            用户信息
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" th:object="${sysUsers} " id="sysUsersUpdateForm"
+                              method="post">
+                            <input type="hidden" class="form-control m-input" th:field="*{id}" id="id">
+                            <div class="form-control-inline">
+                                <div class="form-group  m-form__group row">
+                                    <label class="col-lg-3 col-form-label"><span style="color:red;">*</span>组织</label>
+                                    <div class="col-lg-6">
+                                        <input class="form-control" id="teamName" readonly/>
+                                        <input type="hidden" class="form-control" id="teamId" readonly/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-control-inline">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-3 col-form-label"><span style="color:red;">*</span>姓名</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control m-input" th:field="*{name}" id="name"
+                                               required readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-control-inline">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-3 col-form-label"><span style="color:red;">*</span>账号</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control m-input" th:field="*{account}"
+                                               id="account" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-control-inline">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-3 col-form-label">密码</label>
+                                    <div class="col-lg-6">
+                                        <input type="password" class="form-control m-input" th:field="*{password}"
+                                               id="password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-control-inline">
+                                <div class="form-group  m-form__group row">
+                                    <label class="col-lg-3 col-form-label">电话</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control m-input" th:field="*{tel}" id="tel">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-control-inline">
+                                <div class="form-group  m-form__group row">
+                                    <label class="col-lg-3 col-form-label">邮箱</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control m-input" th:field="*{email}" id="email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-control-inline">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-3 col-form-label">锁定标志</label>
+                                    <div class="col-lg-6">
+                                        <select class="form-control" name="search" id="lockFlag">
+                                            <option style='display: none'></option>
+                                            <option value="0">否</option>
+                                            <option value="1">是</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-control-inline">
+                                <div class="form-group m-form__group row">
+                                    <label class="col-lg-3 col-form-label">备注</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" class="form-control m-input" th:field="*{remark}"
+                                               id="remark">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                <button type="submit" class="btn btn-primary">保存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 选择组织机构（Modal） -->
+        <div class="modal fade" id="orgModel" tabindex="-1" role="dialog" aria-labelledby="addUsersModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                            <h4 class="modal-title">选择组织结构及人员</h4>
+                        </div>
+                        <div class="modal-body-auto">
+                            <div class="search-list-box">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="tree-box">
+                                            <div id="productionLineCatalogTree"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="list-box">
+                                            <div class="input-group input-group-sm">
+                                                <input type="text" name="employeeName" id="employeeName" class="form-control pull-right" placeholder="输入关键字">
+                                                <div class="input-group-btn">
+                                                    <button type="submit" class="btn btn-default" id="searchEmployee"><i class="fa fa-search"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="list-check">
+                                                <ul id="employList">
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="col-sm-12">
+                                        <div class="info-tag-box">
+                                            <div class="tags-box">
+                                                <span class="summary-text">已选:</span>
+                                                <span class="tag-item">梦琪<a class="btn-del"><i class="fa  fa-times-circle"></i></a></span>
+                                                <span class="tag-item">忆柳<a class="btn-del"><i class="fa  fa-times-circle"></i></a></span>
+                                            </div>
+                                        </div>
+                                    </div>-->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <button type="button"id="confirmEmp" class="btn btn-info" data-dismiss="modal">确定</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+        </div>
+
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+
+                    <!-- 按钮触发模态框 -->
+                    <div class="box-header with-border">
+                        <a class="btn btn-primary" id="addSysUsersBtn">
+                            <i class="fa fa-plus"></i> 增加
+                        </a>
+                        <a class="btn btn-warning" id="deleteSysUsersBtn">
+                            <i class="fa fa-trash-o"></i> 删除
+                        </a>
+                        <a class="btn btn-primary" id="updateSysUsersBtn">
+                            <i class="fa fa-edit"></i> 修改
+                        </a>
+                        <a class="btn btn-primary" id="queryBtn">
+                            <i class="fa fa-edit"></i> 查询
+                        </a>
+                        <a class="btn btn-primary" id="resetBtn">
+                            <i class="fa fa-edit"></i> 重置
+                        </a>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="sysUsersList" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th class="center">
+                                <input type="checkbox" class="checkAll" id="checkAll"/>
+                            </th>
+                            <th>序号</th>
+                            <th>姓名</th>
+                            <th>账号</th>
+                            <th>组织</th>
+                            <th>电话</th>
+                            <th>邮箱</th>
+                            <th>最后登录时间</th>
+                            <th>最后登录ip</th>
+                            <th>在线标志</th>
+                            <th>锁定标志</th>
+                            <th>微信昵称</th>
+                            <th>备注</th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td align="center">
+                                <input type="text" class="form-control form-control-sm form-control-xxs-us " name="search"
+                                       id="name_input"
+                                       placeholder="模糊查询"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control form-control-sm form-control-xxs-us " name="search"
+                                       id="account_input"
+                                       placeholder="模糊查询"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control form-control-sm form-control-xxs-us " name="search"
+                                       id="teamName_input"
+                                       placeholder="模糊查询"/>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <select class="form-control form-control-sm form-control-xxs-us " name="search"
+                                        id="onlineFlag_input">
+                                    <option style='display: none'></option>
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select class="form-control form-control-sm form-control-xxs-us " name="search"
+                                        id="lockFlag_input">
+                                    <option style='display: none'></option>
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control form-control-sm form-control-xxs-us " name="search"
+                                       id="wechatNickname_input"
+                                       placeholder="模糊查询"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control form-control-sm form-control-xxs-us " name="search"
+                                       id="remark_input"
+                                       placeholder="模糊查询"/>
+                            </td>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<div th:replace="themes/default/footer::footer"></div>
+</div>
+<!-- ./wrapper -->
+</body>
+<script th:replace="themes/default/list_js::importjs"></script>
+<script type="text/javascript">
+    //供应商
+    var sysUsersTable;
+
+    var sId = $("input[name='ckb_id']:checked");
+    $(function () {
+        $("#sysUsersUpdateForm").validate({
+                highlight: function (e) {
+                    $(e).closest('.form-group').addClass('has-error');
+                },
+                unhighlight: function (e) {
+                    $(e).closest('.form-group').removeClass('has-error');
+                }
+                ,
+                submitHandler: function () {
+                    addSysUsers();
+                }
+            }
+        );
+        loadDataTableData();
+        // listSrmSuppliers();
+        loadEmployee(1);
+    });
+
+    //加载表格数据
+    function loadDataTableData() {
+        sysUsersTable = $('#sysUsersList').DataTable({
+            "aLengthMenu": [10, 25, 50, 100],
+            "bAutoWidth": false,
+            'bPaginate': true,
+            "bDestory": true,
+            "bRetrieve": true,
+            "bFilter": false,
+            "bSort": false,
+            "bProcessing": true,
+            "serverSide": true,
+            "iDisplayLength": 10,
+            "columns": [
+                {
+                    "sClass": "text-center",
+                    "data": "id",
+                    "render": function (data, type) {
+                        return "<div align='center'><input type='checkbox' onclick = childclick() name='ckb_id' value='" + data + "'></div>";
+                    },
+                    "bSortable": false
+                },
+                {
+                    "data": null,
+                    render: function (data, type, row, meta) {
+                        // 显示行号,
+                        var startIndex = meta.settings._iDisplayStart;
+                        return (startIndex + meta.row + 1).toString();
+                    }
+                },
+
+                {"data": "name"},
+                {"data": "account"},
+                {"data": "teamName"},
+                {"data": "tel"},
+                {"data": "email"},
+                {"data": "lastLoginTime"},
+                {"data": "lastLoginIp"},
+                {
+                    "data": "onlineFlag",
+                    "render": function (data, type, row, meta) {
+                        if ("1" == data) {
+                            return "是";
+                        } else {
+                            return "否";
+                        }
+                    }
+                },
+                {
+                    "data": "lockFlag",
+                    "render": function (data, type, row, meta) {
+                        if ("1" == data) {
+                            return "是";
+                        } else {
+                            return "否";
+                        }
+                    }
+                },
+                {"data": "wechatNickname"},
+                {"data": "remark"}
+            ],
+            "ajax": {
+                type: "POST",
+                url: '/users/listSysUsers',
+                data: function (d) {
+                    d.name = $.trim($('#name_input').val());
+                    d.account = $.trim($('#account_input').val());
+                    d.teamName = $.trim($('#teamName_input').val());
+                    d.onlineFlag = $.trim($('#onlineFlag_input').val());
+                    d.lockFlag = $.trim($('#lockFlag_input').val());
+                    d.wechatNickname = $.trim($('#wechatNickname_input').val());
+                    d.remark = $.trim($('#remark_input').val());
+                    return d;
+                }
+            },
+            "fnCreatedRow": function (nRow, aData, iDataIndex) {
+                $(nRow).css("cursor", "pointer");
+            },
+            "oLanguage": {
+                "sProcessing": "努力加载中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有数据",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                }
+            }
+        })
+    }
+
+    //实现全选功能
+    $('#checkAll').on('click', function () {
+        if (this.checked) {
+            $(this).attr('checked', 'checked');
+            $("input[name='ckb_id']").each(function () {
+                this.checked = true;
+            });
+        } else {
+            $(this).removeAttr('checked');
+            $("input[name='ckb_id']").each(function () {
+                this.checked = false;
+            });
+        }
+    });
+
+    function childclick(id) {
+        if ($(this).is(":checked") == false) {
+            $("#checkAll").prop("checked", false);
+        }
+    }
+
+    //回车键绑定
+    $("input[name='search']").bind('keypress', function (event) {
+        if (event.keyCode == "13") {
+            sysUsersTable.ajax.reload();
+        }
+    });
+
+    //添加
+    function addSysUsers() {
+        var teamId = $.trim($('#teamId').val());
+        var teamName = $.trim($('#teamName').val());
+        var account = $.trim($('#account').val());
+        if ("" == teamId) {
+            swal('提示', '请选择组织！', 'warning');
+            return;
+        }
+        if ("root" == account.toLowerCase()) {
+            swal('提示', '不允许为root账号！', 'warning');
+            return;
+        }
+
+        var params = {
+            id: $.trim($('#id').val()),
+            teamId: teamId,
+            teamName: $.trim($('#teamName').val()),
+
+            name: $.trim($('#name').val()),
+            account: account,
+            password: $.trim($('#password').val()),
+            tel: $.trim($('#tel').val()),
+            email: $.trim($('#email').val()),
+            lockFlag: $.trim($('#lockFlag').val()),
+            remark: $.trim($('#remark').val())
+        }
+        $.ajax({
+            type: "post",
+            data: params,
+            url: "/users/addSysUsers",
+            dataType: "json",
+            success: function (data) {
+                if (data.code) {
+                    swal('提示', data.msg, 'success');
+                    //刷新当前
+                    setTimeout(function () {
+                        history.go(0);
+                    }, 1000);
+                } else {
+                    swal('提示', data.msg, 'warning');
+                }
+            }
+        })
+    }
+
+    //点击组织结构弹出选择框
+    $('#teamName').click(function () {
+        $('#orgModel').modal('show');
+    });
+    //添加
+    $('#addSysUsersBtn').click(function () {
+        //清空 文本框
+        $('.m-input').val('');
+        //组织
+        // $("#teamId")[0].options.selectedIndex = 0;
+        // $("#lockFlag")[0].options.selectedIndex = 0;
+        $('#password').prop("required", true);
+
+        $('#addUsersModal').modal('show');
+    });
+
+
+    //修改
+    $('#updateSysUsersBtn').click(function () {
+        //清空 文本框
+        $('.m-input').val('');
+        //组织
+        $("#teamId")[0].options.selectedIndex = 0;
+        $("#lockFlag")[0].options.selectedIndex = 0;
+
+        $('#password').prop("required", false);
+
+        var checkedBox = $("input[name='ckb_id']:checked");
+        if (checkedBox.length != 1) {
+            swal('提示', '请选择一条记录，修改！', 'warning');
+            return;
+        }
+        var params = {
+            id: $('input[name="ckb_id"]:checked').val()
+        };
+
+        $.ajax({
+            url: '/users/getUsers',
+            data: params,
+            dataType: 'json',
+            type: "post",
+            success: function (data) {
+                if (data) {
+                    if (data.code) {
+                        var sysUsers = data.sysUsers;
+                        $('#id').val(sysUsers.id);
+                        $('#teamId').val(sysUsers.teamId);
+                        $('#name').val(sysUsers.name);
+                        $('#account').val(sysUsers.account);
+                        $('#tel').val(sysUsers.tel);
+                        $('#email').val(sysUsers.email);
+                        if (sysUsers.lockFlag) {
+                            $('#lockFlag').val('1');
+                        } else {
+                            $('#lockFlag').val('0');
+                        }
+
+                        $('#remark').val(sysUsers.remark);
+
+                        $('#addUsersModal').modal('show');
+                    } else {
+                        swal('提示', data.msg, 'warning');
+                    }
+                }
+            }
+        });
+    })
+
+    //删除
+    $('#deleteSysUsersBtn').click(function () {
+        var checkedBox = $("input[name='ckb_id']:checked");
+        if (checkedBox.length == 0) {
+            swal('提示', '至少选择一条记录，删除！', 'warning');
+            return;
+        }
+        var ids = [];
+        $('input[name="ckb_id"]:checked').each(function () {
+            ids.push($(this).val());
+        });
+        swal({
+            title: '警告',
+            text: '确定删除：' + ids.length + '条记录？',
+            type: 'error',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: '确定！',
+            cancelButtonText: '取消！',
+        }).then(function (obj) {
+            if (obj.value) {
+                var params = {
+                    ids: ids
+                };
+                $.ajax({
+                    url: '/users/sysUsersDelete',
+                    dataType: 'json',
+                    type: "post",
+                    data: params,
+                    traditional: true,
+                    success: function (data) {
+                        if (data) {
+                            // 1,提示
+                            if (data.code) {
+                                swal('提示', data.msg, 'success');
+                                //刷新当前
+                                setTimeout(function () {
+                                    history.go(0);
+                                }, 1000);
+                            } else {
+                                swal('提示', data.msg, 'warning');
+                            }
+                        }
+                    }
+                });
+            }
+        })
+    });
+
+
+    $("#teamId").change(function () {
+        var contactPerson = $("#teamId option:selected").attr("contactPerson");
+        var tel = $("#teamId option:selected").attr("tel");
+
+        $('#name').val(contactPerson);
+        $('#tel').val(tel);
+    });
+
+    /**
+     * 加载组织
+     */
+    // function listSrmSuppliers() {
+    //     //取消选中
+    //     $("#teamId")[0].options.selectedIndex = 0;
+    //     $.ajax({
+    //         type: "post",
+    //         url: "/api/listSrmSuppliers",
+    //         dataType: "json",
+    //         success: function (data) {
+    //             if (data.code == '200') {
+    //                 $.each(data.data, function (index, supplier) {
+    //                     $("#teamId").append("<option value= " + supplier.id + " contactPerson=" + supplier.contactPerson + " tel=" + supplier.tel + ">" + supplier.name + "</option>");
+    //                 });
+    //             }
+    //         }
+    //     });
+    // }
+
+    //查询
+    $('#queryBtn').click(function () {
+        sysUsersTable.ajax.reload();
+    })
+    //重置
+    $('#resetBtn').click(function () {
+        $("input[name='search']").val('');
+        $("#onlineFlag_input")[0].options.selectedIndex = 0;
+        $("#lockFlag_input")[0].options.selectedIndex = 0;
+
+        sysUsersTable.ajax.reload();
+    });
+
+    //加载组织机构树
+    $('#productionLineCatalogTree')
+        .jstree({
+            'core' : {
+                'data' : {
+                    'url' : '/users/loadDepartmentsTree',
+                    'data' : function (node) {
+                        return { 'id' : node.id};
+                    }
+                },
+            }
+        })
+        // 展开所有节点
+        // .on("loaded.jstree", function (event, data) {
+        //     $('#productionLineCatalogTree').jstree('open_all');
+        // })
+        //获得点击节点的id
+        .on("changed.jstree", function (e, data) {
+            var text = data.instance.get_node(data.selected[0]).text;
+            var departmentId = data.instance.get_node(data.selected[0]).id;
+            // 获取当前节点下的目录列表
+            loadEmployee(departmentId);
+        });
+
+    function loadEmployee(departmentId,name) {
+        $.ajax({
+            type: "post",
+            data: {
+                departmentId:departmentId,
+                name:name
+            },
+            url: "/users/loadEmployeeByDepart",
+            dataType: "json",
+            success: function (data) {
+                if (data) {
+                    var html ="";
+                    for (var i=0;i<data.length;i++){
+                        html+='<li><label><input name="employee" type="radio" value="'+data[i].userId+'">'+data[i].name+'<span class="bg"></span></label></li>';
+                    }
+                    $("#employList").text("");// 清空数据
+                    $("#employList").append(html);
+                    //刷新当前
+                } else {
+                    swal('提示', data.msg, 'warning');
+                }
+            }
+        });
+    }
+
+
+    //查询员工信息
+    $('#searchEmployee').click(function () {
+        loadEmployee(1,$("#employeeName").val());
+    })
+
+    //确认员工信息
+    $('#confirmEmp').click(function () {
+        var userId = $('input[name="employee"]:checked').val();
+        $.ajax({
+            type: "post",
+            data: {
+                userId:userId,
+            },
+            url: "/users/selectEmpNameAndDepartName",
+            dataType: "json",
+            success: function (data) {
+                if (data) {
+                    $("#teamId").val(data.departmentId);
+                    $("#teamName").val(data.departmentName);
+                    $("#name").val(data.name);
+                    $("#id").val(data.userId);
+                    //刷新当前
+                } else {
+                    swal('提示', data.msg, 'warning');
+                }
+            }
+        });
+    })
+</script>
+</html>

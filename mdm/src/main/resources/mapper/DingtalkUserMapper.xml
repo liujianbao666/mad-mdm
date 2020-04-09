@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jekeen.mdm.dao.DingtalkUserMapper">
+  <resultMap id="BaseResultMap" type="com.jekeen.mdm.model.DingtalkUser">
+    <id column="userid" jdbcType="VARCHAR" property="userid" />
+    <result column="unionid" jdbcType="VARCHAR" property="unionid" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="workplace" jdbcType="VARCHAR" property="workplace" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="orgEmail" jdbcType="VARCHAR" property="orgemail" />
+    <result column="active" jdbcType="BIT" property="active" />
+    <result column="orderInDepts" jdbcType="BIT" property="orderindepts" />
+    <result column="isAdmin" jdbcType="BIT" property="isadmin" />
+    <result column="isBoss" jdbcType="BIT" property="isboss" />
+    <result column="isLeaderInDepts" jdbcType="VARCHAR" property="isleaderindepts" />
+    <result column="isHide" jdbcType="BIT" property="ishide" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="hiredDate" jdbcType="TIMESTAMP" property="hireddate" />
+    <result column="jobnumber" jdbcType="VARCHAR" property="jobnumber" />
+    <result column="extattr" jdbcType="VARCHAR" property="extattr" />
+    <result column="isSenior" jdbcType="VARCHAR" property="issenior" />
+    <result column="stateCode" jdbcType="VARCHAR" property="statecode" />
+    <result column="roles_id" jdbcType="VARCHAR" property="rolesId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    userid, unionid, NAME, tel, workplace, remark, mobile, email, orgEmail, active, orderInDepts,
+    isAdmin, isBoss, isLeaderInDepts, isHide, department, position, hiredDate, jobnumber, 
+    extattr, isSenior, stateCode, roles_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dingtalk_user
+    where userid = #{userid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectUserSelective" parameterType="com.jekeen.mdm.model.DingtalkUser" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    from dingtalk_user user
+    where 1=1
+    <if test="userid != null and userid != ''">
+      and user.userid = #{userid,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null and name !=''">
+      and user.name like  concat('%',#{name},'%')
+    </if>
+    <if test="workplace != null and workplace !=''">
+      and  user.workplace like  concat('%',#{workplace},'%')
+    </if>
+    <if test="department != null  and department !=''">
+      and user.department like  concat('%',#{department},'%')
+    </if>
+    <if test="active != null  and active !=''">
+      and user.active = #{active,jdbcType=BIT}
+    </if>
+    <if test="rolesId != null  and rolesId !=''">
+      and user.roles_id = #{rolesId,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dingtalk_user
+    where userid = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jekeen.mdm.model.DingtalkUser">
+    insert into dingtalk_user (userid, unionid, NAME, 
+      tel, workplace, remark,
+      mobile, email, orgEmail, 
+      active, orderInDepts, isAdmin, 
+      isBoss, isLeaderInDepts, isHide, 
+      department, position, hiredDate, 
+      jobnumber, extattr, isSenior, 
+      stateCode, roles_id)
+    values (#{userid,jdbcType=VARCHAR}, #{unionid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{workplace,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{orgemail,jdbcType=VARCHAR}, 
+      #{active,jdbcType=BIT}, #{orderindepts,jdbcType=BIT}, #{isadmin,jdbcType=BIT}, 
+      #{isboss,jdbcType=BIT}, #{isleaderindepts,jdbcType=VARCHAR}, #{ishide,jdbcType=BIT}, 
+      #{department,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{hireddate,jdbcType=TIMESTAMP}, 
+      #{jobnumber,jdbcType=VARCHAR}, #{extattr,jdbcType=VARCHAR}, #{issenior,jdbcType=VARCHAR}, 
+      #{statecode,jdbcType=VARCHAR}, #{rolesId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jekeen.mdm.model.DingtalkUser">
+    insert into dingtalk_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="unionid != null">
+        unionid,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="workplace != null">
+        workplace,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="orgemail != null">
+        orgEmail,
+      </if>
+      <if test="active != null">
+        active,
+      </if>
+      <if test="orderindepts != null">
+        orderInDepts,
+      </if>
+      <if test="isadmin != null">
+        isAdmin,
+      </if>
+      <if test="isboss != null">
+        isBoss,
+      </if>
+      <if test="isleaderindepts != null">
+        isLeaderInDepts,
+      </if>
+      <if test="ishide != null">
+        isHide,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="hireddate != null">
+        hiredDate,
+      </if>
+      <if test="jobnumber != null">
+        jobnumber,
+      </if>
+      <if test="extattr != null">
+        extattr,
+      </if>
+      <if test="issenior != null">
+        isSenior,
+      </if>
+      <if test="statecode != null">
+        stateCode,
+      </if>
+      <if test="rolesId != null">
+        roles_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="unionid != null">
+        #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="orgemail != null">
+        #{orgemail,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        #{active,jdbcType=BIT},
+      </if>
+      <if test="orderindepts != null">
+        #{orderindepts,jdbcType=BIT},
+      </if>
+      <if test="isadmin != null">
+        #{isadmin,jdbcType=BIT},
+      </if>
+      <if test="isboss != null">
+        #{isboss,jdbcType=BIT},
+      </if>
+      <if test="isleaderindepts != null">
+        #{isleaderindepts,jdbcType=VARCHAR},
+      </if>
+      <if test="ishide != null">
+        #{ishide,jdbcType=BIT},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="hireddate != null">
+        #{hireddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobnumber != null">
+        #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="extattr != null">
+        #{extattr,jdbcType=VARCHAR},
+      </if>
+      <if test="issenior != null">
+        #{issenior,jdbcType=VARCHAR},
+      </if>
+      <if test="statecode != null">
+        #{statecode,jdbcType=VARCHAR},
+      </if>
+      <if test="rolesId != null">
+        #{rolesId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jekeen.mdm.model.DingtalkUser">
+    update dingtalk_user
+    <set>
+      <if test="unionid != null">
+        unionid = #{unionid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        workplace = #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="orgemail != null">
+        orgEmail = #{orgemail,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null">
+        active = #{active,jdbcType=BIT},
+      </if>
+      <if test="orderindepts != null">
+        orderInDepts = #{orderindepts,jdbcType=BIT},
+      </if>
+      <if test="isadmin != null">
+        isAdmin = #{isadmin,jdbcType=BIT},
+      </if>
+      <if test="isboss != null">
+        isBoss = #{isboss,jdbcType=BIT},
+      </if>
+      <if test="isleaderindepts != null">
+        isLeaderInDepts = #{isleaderindepts,jdbcType=VARCHAR},
+      </if>
+      <if test="ishide != null">
+        isHide = #{ishide,jdbcType=BIT},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="hireddate != null">
+        hiredDate = #{hireddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="jobnumber != null">
+        jobnumber = #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="extattr != null">
+        extattr = #{extattr,jdbcType=VARCHAR},
+      </if>
+      <if test="issenior != null">
+        isSenior = #{issenior,jdbcType=VARCHAR},
+      </if>
+      <if test="statecode != null">
+        stateCode = #{statecode,jdbcType=VARCHAR},
+      </if>
+      <if test="rolesId != null">
+        roles_id = #{rolesId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jekeen.mdm.model.DingtalkUser">
+    update dingtalk_user
+    set unionid = #{unionid,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      workplace = #{workplace,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      orgEmail = #{orgemail,jdbcType=VARCHAR},
+      active = #{active,jdbcType=BIT},
+      orderInDepts = #{orderindepts,jdbcType=BIT},
+      isAdmin = #{isadmin,jdbcType=BIT},
+      isBoss = #{isboss,jdbcType=BIT},
+      isLeaderInDepts = #{isleaderindepts,jdbcType=VARCHAR},
+      isHide = #{ishide,jdbcType=BIT},
+      department = #{department,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      hiredDate = #{hireddate,jdbcType=TIMESTAMP},
+      jobnumber = #{jobnumber,jdbcType=VARCHAR},
+      extattr = #{extattr,jdbcType=VARCHAR},
+      isSenior = #{issenior,jdbcType=VARCHAR},
+      stateCode = #{statecode,jdbcType=VARCHAR},
+      roles_id = #{rolesId,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>

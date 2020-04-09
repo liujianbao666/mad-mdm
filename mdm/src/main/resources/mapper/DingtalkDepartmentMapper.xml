@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jekeen.mdm.dao.DingtalkDepartmentMapper">
+  <resultMap id="BaseResultMap" type="com.jekeen.mdm.model.DingtalkDepartment">
+    <result column="id" jdbcType="VARCHAR" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parentid" jdbcType="VARCHAR" property="parentid" />
+    <result column="orders" jdbcType="VARCHAR" property="orders" />
+    <result column="createDeptGroup" jdbcType="VARCHAR" property="createdeptgroup" />
+    <result column="autoAddUser" jdbcType="VARCHAR" property="autoadduser" />
+    <result column="deptHiding" jdbcType="VARCHAR" property="depthiding" />
+    <result column="deptPermits" jdbcType="VARCHAR" property="deptpermits" />
+    <result column="userPermits" jdbcType="VARCHAR" property="userpermits" />
+    <result column="outerDept" jdbcType="VARCHAR" property="outerdept" />
+    <result column="outerPermitDepts" jdbcType="VARCHAR" property="outerpermitdepts" />
+    <result column="outerPermitUsers" jdbcType="VARCHAR" property="outerpermitusers" />
+    <result column="orgDeptOwner" jdbcType="VARCHAR" property="orgdeptowner" />
+    <result column="deptManagerUseridList" jdbcType="VARCHAR" property="deptmanageruseridlist" />
+    <result column="sourceIdentifier" jdbcType="VARCHAR" property="sourceidentifier" />
+    <result column="groupContainSubDept" jdbcType="VARCHAR" property="groupcontainsubdept" />
+  </resultMap>
+  <insert id="insert" parameterType="com.jekeen.mdm.model.DingtalkDepartment">
+    insert into dingtalk_department (id, name, parentid, 
+      orders, createDeptGroup, autoAddUser, 
+      deptHiding, deptPermits, userPermits, 
+      outerDept, outerPermitDepts, outerPermitUsers, 
+      orgDeptOwner, deptManagerUseridList, sourceIdentifier, 
+      groupContainSubDept)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, 
+      #{orders,jdbcType=VARCHAR}, #{createdeptgroup,jdbcType=VARCHAR}, #{autoadduser,jdbcType=VARCHAR}, 
+      #{depthiding,jdbcType=VARCHAR}, #{deptpermits,jdbcType=VARCHAR}, #{userpermits,jdbcType=VARCHAR}, 
+      #{outerdept,jdbcType=VARCHAR}, #{outerpermitdepts,jdbcType=VARCHAR}, #{outerpermitusers,jdbcType=VARCHAR}, 
+      #{orgdeptowner,jdbcType=VARCHAR}, #{deptmanageruseridlist,jdbcType=VARCHAR}, #{sourceidentifier,jdbcType=VARCHAR}, 
+      #{groupcontainsubdept,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jekeen.mdm.model.DingtalkDepartment">
+    insert into dingtalk_department
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+      <if test="orders != null">
+        orders,
+      </if>
+      <if test="createdeptgroup != null">
+        createDeptGroup,
+      </if>
+      <if test="autoadduser != null">
+        autoAddUser,
+      </if>
+      <if test="depthiding != null">
+        deptHiding,
+      </if>
+      <if test="deptpermits != null">
+        deptPermits,
+      </if>
+      <if test="userpermits != null">
+        userPermits,
+      </if>
+      <if test="outerdept != null">
+        outerDept,
+      </if>
+      <if test="outerpermitdepts != null">
+        outerPermitDepts,
+      </if>
+      <if test="outerpermitusers != null">
+        outerPermitUsers,
+      </if>
+      <if test="orgdeptowner != null">
+        orgDeptOwner,
+      </if>
+      <if test="deptmanageruseridlist != null">
+        deptManagerUseridList,
+      </if>
+      <if test="sourceidentifier != null">
+        sourceIdentifier,
+      </if>
+      <if test="groupcontainsubdept != null">
+        groupContainSubDept,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null">
+        #{orders,jdbcType=VARCHAR},
+      </if>
+      <if test="createdeptgroup != null">
+        #{createdeptgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="autoadduser != null">
+        #{autoadduser,jdbcType=VARCHAR},
+      </if>
+      <if test="depthiding != null">
+        #{depthiding,jdbcType=VARCHAR},
+      </if>
+      <if test="deptpermits != null">
+        #{deptpermits,jdbcType=VARCHAR},
+      </if>
+      <if test="userpermits != null">
+        #{userpermits,jdbcType=VARCHAR},
+      </if>
+      <if test="outerdept != null">
+        #{outerdept,jdbcType=VARCHAR},
+      </if>
+      <if test="outerpermitdepts != null">
+        #{outerpermitdepts,jdbcType=VARCHAR},
+      </if>
+      <if test="outerpermitusers != null">
+        #{outerpermitusers,jdbcType=VARCHAR},
+      </if>
+      <if test="orgdeptowner != null">
+        #{orgdeptowner,jdbcType=VARCHAR},
+      </if>
+      <if test="deptmanageruseridlist != null">
+        #{deptmanageruseridlist,jdbcType=VARCHAR},
+      </if>
+      <if test="sourceidentifier != null">
+        #{sourceidentifier,jdbcType=VARCHAR},
+      </if>
+      <if test="groupcontainsubdept != null">
+        #{groupcontainsubdept,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

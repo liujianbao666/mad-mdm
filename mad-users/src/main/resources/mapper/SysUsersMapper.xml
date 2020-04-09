@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jekeen.users.dao.SysUsersMapper">
+    <resultMap id="BaseResultMap" type="com.jekeen.users.model.SysUsers">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="team_id" jdbcType="VARCHAR" property="teamId"/>
+        <result column="team_name" jdbcType="VARCHAR" property="teamName"/>
+        <result column="tel" jdbcType="VARCHAR" property="tel"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="last_login_time" jdbcType="VARCHAR" property="lastLoginTime"/>
+        <result column="last_login_ip" jdbcType="VARCHAR" property="lastLoginIp"/>
+        <result column="online_flag" jdbcType="BIT" property="onlineFlag"/>
+        <result column="lock_flag" jdbcType="BIT" property="lockFlag"/>
+        <result column="wechat_nickname" jdbcType="VARCHAR" property="wechatNickname"/>
+        <result column="wechat_unionid" jdbcType="VARCHAR" property="wechatUnionid"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, account, password, team_id,team_name, tel, email, last_login_time, last_login_ip,
+    online_flag, lock_flag, wechat_nickname, wechat_unionid, remark
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_users
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_users
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insertSelective" parameterType="com.jekeen.users.model.SysUsers">
+        insert into sys_users
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="account != null">
+                account,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="teamId != null">
+                team_id,
+            </if>
+            <if test="teamName != null">
+                team_name,
+            </if>
+            <if test="tel != null">
+                tel,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time,
+            </if>
+            <if test="lastLoginIp != null">
+                last_login_ip,
+            </if>
+            <if test="onlineFlag != null">
+                online_flag,
+            </if>
+            <if test="lockFlag != null">
+                lock_flag,
+            </if>
+            <if test="wechatNickname != null">
+                wechat_nickname,
+            </if>
+            <if test="wechatUnionid != null">
+                wechat_unionid,
+            </if>
+            <if test="remark != null">
+                remark,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="teamId != null">
+                #{teamId,jdbcType=VARCHAR},
+            </if>
+            <if test="teamName != null">
+                #{teamName,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginTime != null">
+                #{lastLoginTime,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginIp != null">
+                #{lastLoginIp,jdbcType=VARCHAR},
+            </if>
+            <if test="onlineFlag != null">
+                #{onlineFlag,jdbcType=BIT},
+            </if>
+            <if test="lockFlag != null">
+                #{lockFlag,jdbcType=BIT},
+            </if>
+            <if test="wechatNickname != null">
+                #{wechatNickname,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatUnionid != null">
+                #{wechatUnionid,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                #{remark,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.jekeen.users.model.SysUsers">
+        update sys_users
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="account != null">
+                account = #{account,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null and password !=''">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="teamId != null">
+                team_id = #{teamId,jdbcType=VARCHAR},
+            </if>
+            <if test="teamName != null">
+                team_name = #{teamName,jdbcType=VARCHAR},
+            </if>
+            <if test="tel != null">
+                tel = #{tel,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginTime != null">
+                last_login_time = #{lastLoginTime,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginIp != null">
+                last_login_ip = #{lastLoginIp,jdbcType=VARCHAR},
+            </if>
+            <if test="onlineFlag != null">
+                online_flag = #{onlineFlag,jdbcType=BIT},
+            </if>
+            <if test="lockFlag != null">
+                lock_flag = #{lockFlag,jdbcType=BIT},
+            </if>
+            <if test="wechatNickname != null">
+                wechat_nickname = #{wechatNickname,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatUnionid != null">
+                wechat_unionid = #{wechatUnionid,jdbcType=VARCHAR},
+            </if>
+            <if test="remark != null">
+                remark = #{remark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <select id="listSysUsers" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from sys_users where 1=1
+        <if test="account != null and account !=''" >
+            <choose>
+                <when test="equalLikeFlag != null and equalLikeFlag =='equal'">
+                    and account = #{account ,jdbcType=VARCHAR}
+                </when>
+                <otherwise>
+                    and account like concat('%',#{account},'%')
+                </otherwise>
+            </choose>
+        </if>
+        <if test="name != null and name !=''" >
+            and name like concat('%',#{name},'%')
+        </if>
+        <if test="teamName != null and teamName !=''" >
+            and team_name like concat('%',#{teamName},'%')
+        </if>
+        <if test="onlineFlag != null and onlineFlag !=''">
+            <choose>
+                <when test="onlineFlag ==1">
+                    and online_flag = #{onlineFlag,jdbcType=BIT}
+                </when>
+                <otherwise>
+                    and online_flag = #{onlineFlag,jdbcType=BIT} or ISNULL(online_flag)
+                </otherwise>
+            </choose>
+        </if>
+        <if test="lockFlag != null and lockFlag !=''">
+            <choose>
+                <when test="lockFlag ==1">
+                    and lock_flag = #{lockFlag,jdbcType=BIT}
+                </when>
+                <otherwise>
+                    and lock_flag = #{lockFlag,jdbcType=BIT} or ISNULL(lock_flag)
+                </otherwise>
+            </choose>
+        </if>
+        <if test="wechatNickname != null and wechatNickname !=''" >
+            and wechat_nickname like concat('%',#{wechatNickname},'%')
+        </if>
+        <if test="remark != null and remark !=''" >
+            and remark like concat('%',#{remark},'%')
+        </if>
+    </select>
+
+</mapper>

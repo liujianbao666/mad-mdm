@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 配置文件路径 -->
+    <properties resource="generatorConfig.properties"/>
+
+    <!--数据库驱动包路径 -->
+    <classPathEntry location="${drive.class.path}"/>
+    <context id="MySQLTables" targetRuntime="MyBatis3">
+        <!--&lt;!&ndash;关闭注释 &ndash;&gt;-->
+        <!--<commentGenerator>-->
+        <!--<property name="suppressDate" value="true"/>-->
+        <!--&lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;-->
+        <!--<property name="suppressAllComments" value="true"/>-->
+        <!--</commentGenerator>-->
+        <!-- 这里的type里写的是你的实现类的类全类名,注：如果不配置type属性,则会使用默认的CommentGenerator实现类DefaultCommentGenerator -->
+        <!-- 使用自定义的插件 -->
+        <commentGenerator type="com.jekeen.common.generator.MyCommentGenerator">
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库连接信息 -->
+        <jdbcConnection driverClass="${jdbc.driver}" connectionURL="${jdbc.url}" userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+
+        <!--生成的model 包路径 -->
+        <javaModelGenerator targetPackage="${model.package}" targetProject="${target.project}">
+            <property name="enableSubPackages" value="ture"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!--生成xml mapper文件 路径 -->
+        <sqlMapGenerator targetPackage="${xml.mapper.package}" targetProject="${target.projectMapperXml}">
+            <property name="enableSubPackages" value="ture"/>
+        </sqlMapGenerator>
+
+        <!-- 生成的Dao接口 的包路径 -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${dao.package}" targetProject="${target.projectMapper}">
+            <property name="enableSubPackages" value="ture"/>
+        </javaClientGenerator>
+
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 ,domainObjectName是实体类名 （注：屏蔽下划线_）-->
+        <table tableName="operate_log" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+        </table>
+
+    </context>
+</generatorConfiguration>

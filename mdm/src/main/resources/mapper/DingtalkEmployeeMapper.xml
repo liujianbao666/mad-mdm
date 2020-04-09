@@ -1,0 +1,664 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jekeen.mdm.dao.DingtalkEmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.jekeen.mdm.model.DingtalkEmployee">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="dept" jdbcType="VARCHAR" property="dept" />
+    <result column="mainDept" jdbcType="VARCHAR" property="maindept" />
+    <result column="position" jdbcType="VARCHAR" property="position" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="jobNumber" jdbcType="VARCHAR" property="jobnumber" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="workPlace" jdbcType="VARCHAR" property="workplace" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="confirmJoinTime" jdbcType="VARCHAR" property="confirmjointime" />
+    <result column="employeeType" jdbcType="VARCHAR" property="employeetype" />
+    <result column="employeeStatus" jdbcType="VARCHAR" property="employeestatus" />
+    <result column="probationPeriodType" jdbcType="VARCHAR" property="probationperiodtype" />
+    <result column="regularTime" jdbcType="VARCHAR" property="regulartime" />
+    <result column="positionLevel" jdbcType="VARCHAR" property="positionlevel" />
+    <result column="realName" jdbcType="VARCHAR" property="realname" />
+    <result column="certNo" jdbcType="VARCHAR" property="certno" />
+    <result column="birthTime" jdbcType="VARCHAR" property="birthtime" />
+    <result column="sexType" jdbcType="VARCHAR" property="sextype" />
+    <result column="nationType" jdbcType="VARCHAR" property="nationtype" />
+    <result column="certAddress" jdbcType="VARCHAR" property="certaddress" />
+    <result column="certEndTime" jdbcType="VARCHAR" property="certendtime" />
+    <result column="marriage" jdbcType="VARCHAR" property="marriage" />
+    <result column="joinWorkingTime" jdbcType="VARCHAR" property="joinworkingtime" />
+    <result column="residenceType" jdbcType="VARCHAR" property="residencetype" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="politicalStatus" jdbcType="VARCHAR" property="politicalstatus" />
+    <result column="personalSi" jdbcType="VARCHAR" property="personalsi" />
+    <result column="personalHf" jdbcType="VARCHAR" property="personalhf" />
+    <result column="highestEdu" jdbcType="VARCHAR" property="highestedu" />
+    <result column="graduateSchool" jdbcType="VARCHAR" property="graduateschool" />
+    <result column="graduationTime" jdbcType="VARCHAR" property="graduationtime" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="bankAccountNo" jdbcType="VARCHAR" property="bankaccountno" />
+    <result column="accountBank" jdbcType="VARCHAR" property="accountbank" />
+    <result column="contractCompanyName" jdbcType="VARCHAR" property="contractcompanyname" />
+    <result column="contractType" jdbcType="VARCHAR" property="contracttype" />
+    <result column="firstContractStartTime" jdbcType="VARCHAR" property="firstcontractstarttime" />
+    <result column="firstContractEndTime" jdbcType="VARCHAR" property="firstcontractendtime" />
+    <result column="nowContractStartTime" jdbcType="VARCHAR" property="nowcontractstarttime" />
+    <result column="nowContractEndTime" jdbcType="VARCHAR" property="nowcontractendtime" />
+    <result column="contractPeriodType" jdbcType="VARCHAR" property="contractperiodtype" />
+    <result column="contractRenewCount" jdbcType="VARCHAR" property="contractrenewcount" />
+    <result column="urgentContactsName" jdbcType="VARCHAR" property="urgentcontactsname" />
+    <result column="urgentContactsRelation" jdbcType="VARCHAR" property="urgentcontactsrelation" />
+    <result column="urgentContactsPhone" jdbcType="VARCHAR" property="urgentcontactsphone" />
+    <result column="haveChild" jdbcType="VARCHAR" property="havechild" />
+    <result column="childName" jdbcType="VARCHAR" property="childname" />
+    <result column="childSex" jdbcType="VARCHAR" property="childsex" />
+    <result column="childBirthDate" jdbcType="VARCHAR" property="childbirthdate" />
+    <result column="customField" jdbcType="VARCHAR" property="customfield" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, NAME, email, dept, mainDept, position, mobile, jobNumber, tel, workPlace, remark, 
+    confirmJoinTime, employeeType, employeeStatus, probationPeriodType, regularTime, 
+    positionLevel, realName, certNo, birthTime, sexType, nationType, certAddress, certEndTime, 
+    marriage, joinWorkingTime, residenceType, address, politicalStatus, personalSi, personalHf, 
+    highestEdu, graduateSchool, graduationTime, major, bankAccountNo, accountBank, contractCompanyName, 
+    contractType, firstContractStartTime, firstContractEndTime, nowContractStartTime, 
+    nowContractEndTime, contractPeriodType, contractRenewCount, urgentContactsName, urgentContactsRelation, 
+    urgentContactsPhone, haveChild, childName, childSex, childBirthDate, customField
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from dingtalk_employee
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from dingtalk_employee
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jekeen.mdm.model.DingtalkEmployee">
+    insert into dingtalk_employee (id, NAME, email, 
+      dept, mainDept, position, 
+      mobile, jobNumber, tel, 
+      workPlace, remark, confirmJoinTime, 
+      employeeType, employeeStatus, probationPeriodType, 
+      regularTime, positionLevel, realName, 
+      certNo, birthTime, sexType, 
+      nationType, certAddress, certEndTime, 
+      marriage, joinWorkingTime, residenceType, 
+      address, politicalStatus, personalSi, 
+      personalHf, highestEdu, graduateSchool, 
+      graduationTime, major, bankAccountNo, 
+      accountBank, contractCompanyName, contractType, 
+      firstContractStartTime, firstContractEndTime, 
+      nowContractStartTime, nowContractEndTime, 
+      contractPeriodType, contractRenewCount, 
+      urgentContactsName, urgentContactsRelation, 
+      urgentContactsPhone, haveChild, childName, 
+      childSex, childBirthDate, customField
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{dept,jdbcType=VARCHAR}, #{maindept,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{jobnumber,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+      #{workplace,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{confirmjointime,jdbcType=VARCHAR}, 
+      #{employeetype,jdbcType=VARCHAR}, #{employeestatus,jdbcType=VARCHAR}, #{probationperiodtype,jdbcType=VARCHAR}, 
+      #{regulartime,jdbcType=VARCHAR}, #{positionlevel,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
+      #{certno,jdbcType=VARCHAR}, #{birthtime,jdbcType=VARCHAR}, #{sextype,jdbcType=VARCHAR}, 
+      #{nationtype,jdbcType=VARCHAR}, #{certaddress,jdbcType=VARCHAR}, #{certendtime,jdbcType=VARCHAR}, 
+      #{marriage,jdbcType=VARCHAR}, #{joinworkingtime,jdbcType=VARCHAR}, #{residencetype,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{politicalstatus,jdbcType=VARCHAR}, #{personalsi,jdbcType=VARCHAR}, 
+      #{personalhf,jdbcType=VARCHAR}, #{highestedu,jdbcType=VARCHAR}, #{graduateschool,jdbcType=VARCHAR}, 
+      #{graduationtime,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{bankaccountno,jdbcType=VARCHAR}, 
+      #{accountbank,jdbcType=VARCHAR}, #{contractcompanyname,jdbcType=VARCHAR}, #{contracttype,jdbcType=VARCHAR}, 
+      #{firstcontractstarttime,jdbcType=VARCHAR}, #{firstcontractendtime,jdbcType=VARCHAR}, 
+      #{nowcontractstarttime,jdbcType=VARCHAR}, #{nowcontractendtime,jdbcType=VARCHAR}, 
+      #{contractperiodtype,jdbcType=VARCHAR}, #{contractrenewcount,jdbcType=VARCHAR}, 
+      #{urgentcontactsname,jdbcType=VARCHAR}, #{urgentcontactsrelation,jdbcType=VARCHAR}, 
+      #{urgentcontactsphone,jdbcType=VARCHAR}, #{havechild,jdbcType=VARCHAR}, #{childname,jdbcType=VARCHAR}, 
+      #{childsex,jdbcType=VARCHAR}, #{childbirthdate,jdbcType=VARCHAR}, #{customfield,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jekeen.mdm.model.DingtalkEmployee">
+    insert into dingtalk_employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="dept != null">
+        dept,
+      </if>
+      <if test="maindept != null">
+        mainDept,
+      </if>
+      <if test="position != null">
+        position,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="jobnumber != null">
+        jobNumber,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="workplace != null">
+        workPlace,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="confirmjointime != null">
+        confirmJoinTime,
+      </if>
+      <if test="employeetype != null">
+        employeeType,
+      </if>
+      <if test="employeestatus != null">
+        employeeStatus,
+      </if>
+      <if test="probationperiodtype != null">
+        probationPeriodType,
+      </if>
+      <if test="regulartime != null">
+        regularTime,
+      </if>
+      <if test="positionlevel != null">
+        positionLevel,
+      </if>
+      <if test="realname != null">
+        realName,
+      </if>
+      <if test="certno != null">
+        certNo,
+      </if>
+      <if test="birthtime != null">
+        birthTime,
+      </if>
+      <if test="sextype != null">
+        sexType,
+      </if>
+      <if test="nationtype != null">
+        nationType,
+      </if>
+      <if test="certaddress != null">
+        certAddress,
+      </if>
+      <if test="certendtime != null">
+        certEndTime,
+      </if>
+      <if test="marriage != null">
+        marriage,
+      </if>
+      <if test="joinworkingtime != null">
+        joinWorkingTime,
+      </if>
+      <if test="residencetype != null">
+        residenceType,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="politicalstatus != null">
+        politicalStatus,
+      </if>
+      <if test="personalsi != null">
+        personalSi,
+      </if>
+      <if test="personalhf != null">
+        personalHf,
+      </if>
+      <if test="highestedu != null">
+        highestEdu,
+      </if>
+      <if test="graduateschool != null">
+        graduateSchool,
+      </if>
+      <if test="graduationtime != null">
+        graduationTime,
+      </if>
+      <if test="major != null">
+        major,
+      </if>
+      <if test="bankaccountno != null">
+        bankAccountNo,
+      </if>
+      <if test="accountbank != null">
+        accountBank,
+      </if>
+      <if test="contractcompanyname != null">
+        contractCompanyName,
+      </if>
+      <if test="contracttype != null">
+        contractType,
+      </if>
+      <if test="firstcontractstarttime != null">
+        firstContractStartTime,
+      </if>
+      <if test="firstcontractendtime != null">
+        firstContractEndTime,
+      </if>
+      <if test="nowcontractstarttime != null">
+        nowContractStartTime,
+      </if>
+      <if test="nowcontractendtime != null">
+        nowContractEndTime,
+      </if>
+      <if test="contractperiodtype != null">
+        contractPeriodType,
+      </if>
+      <if test="contractrenewcount != null">
+        contractRenewCount,
+      </if>
+      <if test="urgentcontactsname != null">
+        urgentContactsName,
+      </if>
+      <if test="urgentcontactsrelation != null">
+        urgentContactsRelation,
+      </if>
+      <if test="urgentcontactsphone != null">
+        urgentContactsPhone,
+      </if>
+      <if test="havechild != null">
+        haveChild,
+      </if>
+      <if test="childname != null">
+        childName,
+      </if>
+      <if test="childsex != null">
+        childSex,
+      </if>
+      <if test="childbirthdate != null">
+        childBirthDate,
+      </if>
+      <if test="customfield != null">
+        customField,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null">
+        #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="maindept != null">
+        #{maindept,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="jobnumber != null">
+        #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmjointime != null">
+        #{confirmjointime,jdbcType=VARCHAR},
+      </if>
+      <if test="employeetype != null">
+        #{employeetype,jdbcType=VARCHAR},
+      </if>
+      <if test="employeestatus != null">
+        #{employeestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="probationperiodtype != null">
+        #{probationperiodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="regulartime != null">
+        #{regulartime,jdbcType=VARCHAR},
+      </if>
+      <if test="positionlevel != null">
+        #{positionlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="certno != null">
+        #{certno,jdbcType=VARCHAR},
+      </if>
+      <if test="birthtime != null">
+        #{birthtime,jdbcType=VARCHAR},
+      </if>
+      <if test="sextype != null">
+        #{sextype,jdbcType=VARCHAR},
+      </if>
+      <if test="nationtype != null">
+        #{nationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="certaddress != null">
+        #{certaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="certendtime != null">
+        #{certendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="marriage != null">
+        #{marriage,jdbcType=VARCHAR},
+      </if>
+      <if test="joinworkingtime != null">
+        #{joinworkingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="residencetype != null">
+        #{residencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalstatus != null">
+        #{politicalstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="personalsi != null">
+        #{personalsi,jdbcType=VARCHAR},
+      </if>
+      <if test="personalhf != null">
+        #{personalhf,jdbcType=VARCHAR},
+      </if>
+      <if test="highestedu != null">
+        #{highestedu,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateschool != null">
+        #{graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationtime != null">
+        #{graduationtime,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccountno != null">
+        #{bankaccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="accountbank != null">
+        #{accountbank,jdbcType=VARCHAR},
+      </if>
+      <if test="contractcompanyname != null">
+        #{contractcompanyname,jdbcType=VARCHAR},
+      </if>
+      <if test="contracttype != null">
+        #{contracttype,jdbcType=VARCHAR},
+      </if>
+      <if test="firstcontractstarttime != null">
+        #{firstcontractstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="firstcontractendtime != null">
+        #{firstcontractendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="nowcontractstarttime != null">
+        #{nowcontractstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="nowcontractendtime != null">
+        #{nowcontractendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="contractperiodtype != null">
+        #{contractperiodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="contractrenewcount != null">
+        #{contractrenewcount,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentcontactsname != null">
+        #{urgentcontactsname,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentcontactsrelation != null">
+        #{urgentcontactsrelation,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentcontactsphone != null">
+        #{urgentcontactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="havechild != null">
+        #{havechild,jdbcType=VARCHAR},
+      </if>
+      <if test="childname != null">
+        #{childname,jdbcType=VARCHAR},
+      </if>
+      <if test="childsex != null">
+        #{childsex,jdbcType=VARCHAR},
+      </if>
+      <if test="childbirthdate != null">
+        #{childbirthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="customfield != null">
+        #{customfield,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jekeen.mdm.model.DingtalkEmployee">
+    update dingtalk_employee
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null">
+        dept = #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="maindept != null">
+        mainDept = #{maindept,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null">
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="jobnumber != null">
+        jobNumber = #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="workplace != null">
+        workPlace = #{workplace,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmjointime != null">
+        confirmJoinTime = #{confirmjointime,jdbcType=VARCHAR},
+      </if>
+      <if test="employeetype != null">
+        employeeType = #{employeetype,jdbcType=VARCHAR},
+      </if>
+      <if test="employeestatus != null">
+        employeeStatus = #{employeestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="probationperiodtype != null">
+        probationPeriodType = #{probationperiodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="regulartime != null">
+        regularTime = #{regulartime,jdbcType=VARCHAR},
+      </if>
+      <if test="positionlevel != null">
+        positionLevel = #{positionlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="certno != null">
+        certNo = #{certno,jdbcType=VARCHAR},
+      </if>
+      <if test="birthtime != null">
+        birthTime = #{birthtime,jdbcType=VARCHAR},
+      </if>
+      <if test="sextype != null">
+        sexType = #{sextype,jdbcType=VARCHAR},
+      </if>
+      <if test="nationtype != null">
+        nationType = #{nationtype,jdbcType=VARCHAR},
+      </if>
+      <if test="certaddress != null">
+        certAddress = #{certaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="certendtime != null">
+        certEndTime = #{certendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="marriage != null">
+        marriage = #{marriage,jdbcType=VARCHAR},
+      </if>
+      <if test="joinworkingtime != null">
+        joinWorkingTime = #{joinworkingtime,jdbcType=VARCHAR},
+      </if>
+      <if test="residencetype != null">
+        residenceType = #{residencetype,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="politicalstatus != null">
+        politicalStatus = #{politicalstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="personalsi != null">
+        personalSi = #{personalsi,jdbcType=VARCHAR},
+      </if>
+      <if test="personalhf != null">
+        personalHf = #{personalhf,jdbcType=VARCHAR},
+      </if>
+      <if test="highestedu != null">
+        highestEdu = #{highestedu,jdbcType=VARCHAR},
+      </if>
+      <if test="graduateschool != null">
+        graduateSchool = #{graduateschool,jdbcType=VARCHAR},
+      </if>
+      <if test="graduationtime != null">
+        graduationTime = #{graduationtime,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null">
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccountno != null">
+        bankAccountNo = #{bankaccountno,jdbcType=VARCHAR},
+      </if>
+      <if test="accountbank != null">
+        accountBank = #{accountbank,jdbcType=VARCHAR},
+      </if>
+      <if test="contractcompanyname != null">
+        contractCompanyName = #{contractcompanyname,jdbcType=VARCHAR},
+      </if>
+      <if test="contracttype != null">
+        contractType = #{contracttype,jdbcType=VARCHAR},
+      </if>
+      <if test="firstcontractstarttime != null">
+        firstContractStartTime = #{firstcontractstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="firstcontractendtime != null">
+        firstContractEndTime = #{firstcontractendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="nowcontractstarttime != null">
+        nowContractStartTime = #{nowcontractstarttime,jdbcType=VARCHAR},
+      </if>
+      <if test="nowcontractendtime != null">
+        nowContractEndTime = #{nowcontractendtime,jdbcType=VARCHAR},
+      </if>
+      <if test="contractperiodtype != null">
+        contractPeriodType = #{contractperiodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="contractrenewcount != null">
+        contractRenewCount = #{contractrenewcount,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentcontactsname != null">
+        urgentContactsName = #{urgentcontactsname,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentcontactsrelation != null">
+        urgentContactsRelation = #{urgentcontactsrelation,jdbcType=VARCHAR},
+      </if>
+      <if test="urgentcontactsphone != null">
+        urgentContactsPhone = #{urgentcontactsphone,jdbcType=VARCHAR},
+      </if>
+      <if test="havechild != null">
+        haveChild = #{havechild,jdbcType=VARCHAR},
+      </if>
+      <if test="childname != null">
+        childName = #{childname,jdbcType=VARCHAR},
+      </if>
+      <if test="childsex != null">
+        childSex = #{childsex,jdbcType=VARCHAR},
+      </if>
+      <if test="childbirthdate != null">
+        childBirthDate = #{childbirthdate,jdbcType=VARCHAR},
+      </if>
+      <if test="customfield != null">
+        customField = #{customfield,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jekeen.mdm.model.DingtalkEmployee">
+    update dingtalk_employee
+    set NAME = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=VARCHAR},
+      mainDept = #{maindept,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      jobNumber = #{jobnumber,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      workPlace = #{workplace,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      confirmJoinTime = #{confirmjointime,jdbcType=VARCHAR},
+      employeeType = #{employeetype,jdbcType=VARCHAR},
+      employeeStatus = #{employeestatus,jdbcType=VARCHAR},
+      probationPeriodType = #{probationperiodtype,jdbcType=VARCHAR},
+      regularTime = #{regulartime,jdbcType=VARCHAR},
+      positionLevel = #{positionlevel,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      certNo = #{certno,jdbcType=VARCHAR},
+      birthTime = #{birthtime,jdbcType=VARCHAR},
+      sexType = #{sextype,jdbcType=VARCHAR},
+      nationType = #{nationtype,jdbcType=VARCHAR},
+      certAddress = #{certaddress,jdbcType=VARCHAR},
+      certEndTime = #{certendtime,jdbcType=VARCHAR},
+      marriage = #{marriage,jdbcType=VARCHAR},
+      joinWorkingTime = #{joinworkingtime,jdbcType=VARCHAR},
+      residenceType = #{residencetype,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      politicalStatus = #{politicalstatus,jdbcType=VARCHAR},
+      personalSi = #{personalsi,jdbcType=VARCHAR},
+      personalHf = #{personalhf,jdbcType=VARCHAR},
+      highestEdu = #{highestedu,jdbcType=VARCHAR},
+      graduateSchool = #{graduateschool,jdbcType=VARCHAR},
+      graduationTime = #{graduationtime,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      bankAccountNo = #{bankaccountno,jdbcType=VARCHAR},
+      accountBank = #{accountbank,jdbcType=VARCHAR},
+      contractCompanyName = #{contractcompanyname,jdbcType=VARCHAR},
+      contractType = #{contracttype,jdbcType=VARCHAR},
+      firstContractStartTime = #{firstcontractstarttime,jdbcType=VARCHAR},
+      firstContractEndTime = #{firstcontractendtime,jdbcType=VARCHAR},
+      nowContractStartTime = #{nowcontractstarttime,jdbcType=VARCHAR},
+      nowContractEndTime = #{nowcontractendtime,jdbcType=VARCHAR},
+      contractPeriodType = #{contractperiodtype,jdbcType=VARCHAR},
+      contractRenewCount = #{contractrenewcount,jdbcType=VARCHAR},
+      urgentContactsName = #{urgentcontactsname,jdbcType=VARCHAR},
+      urgentContactsRelation = #{urgentcontactsrelation,jdbcType=VARCHAR},
+      urgentContactsPhone = #{urgentcontactsphone,jdbcType=VARCHAR},
+      haveChild = #{havechild,jdbcType=VARCHAR},
+      childName = #{childname,jdbcType=VARCHAR},
+      childSex = #{childsex,jdbcType=VARCHAR},
+      childBirthDate = #{childbirthdate,jdbcType=VARCHAR},
+      customField = #{customfield,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

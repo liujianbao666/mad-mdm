@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jekeen.mdm.dao.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.jekeen.mdm.model.Employee">
+    <id column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="staff_number" jdbcType="VARCHAR" property="staffNumber" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="department_id" jdbcType="VARCHAR" property="departmentId" />
+    <result column="job_id" jdbcType="VARCHAR" property="jobId" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="hiredDate" jdbcType="VARCHAR" property="hiredDate" />
+    <result column="leaderDepts" jdbcType="VARCHAR" property="leaderDepts" />
+    <!--    <association property="department" javaType="Department">
+          <id property="id" column="department_id" />
+          <result property="code" column="code" />
+          <result property="name" column="departname" />
+        </association>-->
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    user_id, staff_number, name, department_id, job_id,status,hiredDate,leaderDepts
+  </sql>
+
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from employee
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectMaxStaffNumber" resultType="java.lang.String">
+    SELECT MAX(staff_number) maxStaffNumber from employee
+  </select>
+  <select id="getEmployeesSelective" parameterType="com.jekeen.mdm.model.Employee" resultMap="BaseResultMap">
+    SELECT
+    em.user_id ,
+    em.staff_number,
+    em.NAME,
+    em.department_id,
+    em.job_id,
+    em.status,
+    em.hiredDate,
+    em.leaderDepts
+    FROM
+    employee em
+    where 1=1
+    <if test="userId != null and userId != ''">
+      and em.user_id = #{userId,jdbcType=VARCHAR}
+    </if>
+    <if test="staffNumber != null and staffNumber != ''">
+      and em.staff_number = #{staffNumber,jdbcType=VARCHAR}
+    </if>
+    <if test="name != null and name != ''">
+      and em.name like  concat('%',#{name},'%')
+    </if>
+    <if test="departmentId != null and departmentId !=''">
+      and em.department_id like  concat('%',#{departmentId},'%')
+    </if>
+    <if test="jobId != null and jobId != ''">
+      and em.job_id like  concat('%',#{jobId},'%')
+    </if>
+    <if test="status != null and status != ''">
+      and em.status = #{status}
+    </if>
+    <if test="hiredDate != null and hiredDate != ''">
+      and em.hiredDate = #{hiredDate}
+    </if>
+    <if test="leaderDepts != null and leaderDepts != ''">
+      and em.leaderDepts = #{leaderDepts}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from employee
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.jekeen.mdm.model.Employee">
+    insert into employee (user_id, staff_number, name,
+      department_id, job_id)
+    values (#{userId,jdbcType=VARCHAR}, #{staffNumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{departmentId,jdbcType=VARCHAR}, #{jobId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jekeen.mdm.model.Employee">
+    insert into employee
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="staffNumber != null">
+        staff_number,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="departmentId != null">
+        department_id,
+      </if>
+      <if test="jobId != null">
+        job_id,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="hiredDate != null">
+        hiredDate,
+      </if>
+      <if test="leaderDepts != null">
+        leaderDepts,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="staffNumber != null">
+        #{staffNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null">
+        #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="hiredDate != null">
+        #{hiredDate,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderDepts != null">
+        #{leaderDepts,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jekeen.mdm.model.Employee">
+    update employee
+    <set>
+      <if test="staffNumber != null">
+        staff_number = #{staffNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="departmentId != null">
+        department_id = #{departmentId,jdbcType=VARCHAR},
+      </if>
+      <if test="jobId != null">
+        job_id = #{jobId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="hiredDate != null">
+        hiredDate = #{hiredDate,jdbcType=VARCHAR},
+      </if>
+      <if test="leaderDepts != null">
+        leaderDepts = #{leaderDepts,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jekeen.mdm.model.Employee">
+    update employee
+    set staff_number = #{staffNumber,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      department_id = #{departmentId,jdbcType=VARCHAR},
+      job_id = #{jobId,jdbcType=VARCHAR}
+   where user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
+</mapper>

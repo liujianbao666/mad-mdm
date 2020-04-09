@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" th:fragment="nav">
+<body>
+<aside class="main-sidebar">
+    <!-- sidebar: style can be found in sidebar.less -->
+    <section class="sidebar">
+        <!-- Sidebar Menu -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="treeview active">
+                <a href="#"><i class="icon-sm icon-sm-data"></i> <span>银行管理</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/org/jstree ">组织机构树</a></li>
+                    <li><a href="/company/manage ">公司管理</a></li>
+                    <li><a href="/department/manage ">部门管理</a></li>
+                    <li><a href="/employee/manage ">人员管理</a></li>
+                    <li><a href="/job/manage ">岗位管理</a></li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="sidebar-menu" data-widget="tree">
+            <li class="treeview active">
+                <a href="#"><i class="icon-sm icon-sm-data"></i> <span>系统管理</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="/users/manage ">用户管理</a></li>
+                    <li><a href="/dictType/manage ">字典管理</a></li>
+                </ul>
+            </li>
+        </ul>
+        <!-- /.sidebar-menu -->
+    </section>
+    <!-- /.sidebar -->
+</aside>
+
+</body>
+</html>
